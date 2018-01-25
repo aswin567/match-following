@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.br-r{
+    border-right: 2px solid rgba(95, 94, 94, 0.4392156862745098);
+}

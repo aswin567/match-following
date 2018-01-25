@@ -1,4 +1,50 @@
 <div class="mf-container">
-  <div class="col-xs-6">1</div>
-  <div class="col-xs-6">2</div>
+  <div class="header">
+    <div class="col-xs-6 br-r">A
+      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddBaseArray()">
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="col-xs-6">B
+      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddMatchedArray()">
+        <i class="fa fa-plus-square" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div>
+    <div class="col-xs-6 data">
+      <mat-form-field class="example-full-width col-xs-12" *ngFor="let base of baseArray; let i = index;" [@itemAnim]>
+        <span matPrefix>{{i+1}}. &nbsp;</span>
+        <input matInput [(ngModel)]="base.content">
+      </mat-form-field>
+    </div>
+    <div class="col-xs-6 data">
+      <mat-form-field class="example-full-width col-xs-12" *ngFor="let matched of toBeMatchedArray; let j = index;" [@itemAnim]>
+        <span matPrefix>{{j+1}}. &nbsp;</span>
+        <input matInput [(ngModel)]="matched.content">
+      </mat-form-field>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="footer col-xs-12">
+    <div class="col-xs-4">
+      <button mat-raised-button color="warn">
+        <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
+        Reorder
+      </button>
+    </div>
+    <div class="col-xs-4">
+      <button mat-raised-button color="primary" (click)="onCheckMatch()">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Check
+      </button>
+    </div>
+    <div class="col-xs-4">
+      <button mat-raised-button color="warn" (click)="onReset()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+        Reset
+      </button>
+    </div>
+  </div>
 </div>
