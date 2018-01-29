@@ -15,7 +15,7 @@
     <div class="clearfix"></div>
   </div>
   <div>
-    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="baseArray">
+    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="baseArray"  [dropZones]="['zone1']">
       <li *ngFor="let base of baseArray; let i = index;" dnd-sortable [sortableIndex]="i">
         <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
           <span matPrefix>{{i+1}}. &nbsp;</span>
@@ -29,9 +29,10 @@
             <i *ngIf="base.matched === false" class="fa fa-times red" aria-hidden="true"></i>
           </span>
         </mat-form-field>
+        <div class="clearfix"></div>
       </li>
     </ul>
-    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="toBeMatchedArray">
+    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="toBeMatchedArray" [dropZones]="['zone2S']">
       <li *ngFor="let matched of toBeMatchedArray; let i = index;" dnd-sortable [sortableIndex]="i">
         <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
           <span matPrefix>{{i+1}}. &nbsp;</span>
@@ -45,6 +46,7 @@
             <i *ngIf="matched.matched === false" class="fa fa-times red" aria-hidden="true"></i>
           </span>
         </mat-form-field>
+        <div class="clearfix"></div>
       </li>
     </ul>
     <div class="clearfix"></div>

@@ -17,3 +17,12 @@
 .red{
     color: #e21111 !important;
 }
+
+.dnd-sortable-drag{
+    -moz-transform: scale(0.91);
+    -webkit-transform: scale(0.91);
+    transform: scale(.91);
+    opacity: 0.8;
+    border: 1px dashed #0487f9;
+    border-radius: 6px;
+}
