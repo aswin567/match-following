@@ -10,8 +10,38 @@
             padding-top: 14px;
             padding-bottom: 14px;
         }
+        p{
+            font-size: 29px;
+            margin: 0;
+            font-weight: 600;
+            color: #8d8d94;
+            display: inline-block;
+            left: 11px;
+            position: relative;
+            &::before{
+                content: '';
+                position: absolute;
+                width: 6px;
+                height: 21px;
+                left: -15px;
+                top: 9px;
+                background: #c5c5c5;
+            }
+            &::after{
+                content: '';
+                position: absolute;
+                width: 3px;
+                height: 21px;
+                left: -7px;
+                top: 9px;
+                background: #b3b1b1;
+            }
+        }
     }
     .data{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
         span{
             color:green;
             font-weight: bold;

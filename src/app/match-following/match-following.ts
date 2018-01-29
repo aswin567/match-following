@@ -1,3 +1,4 @@
 export interface MatchFollowing {
-    content:string;
+    content:number;
+    matched:boolean | number;
 }

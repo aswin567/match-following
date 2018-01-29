@@ -1,11 +1,13 @@
 <div class="mf-container">
   <div class="header">
-    <div class="col-xs-6 br-r">A
+    <div class="col-xs-6 br-r">
+      <p>A</p>
       <button mat-mini-fab color="primary" class="pull-right" (click)="onAddBaseArray()">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
     </div>
-    <div class="col-xs-6">B
+    <div class="col-xs-6">
+      <p>B</p>
       <button mat-mini-fab color="primary" class="pull-right" (click)="onAddMatchedArray()">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
@@ -13,18 +15,38 @@
     <div class="clearfix"></div>
   </div>
   <div>
-    <div class="col-xs-6 data">
-      <mat-form-field class="example-full-width col-xs-12" *ngFor="let base of baseArray; let i = index;" [@itemAnim]>
-        <span matPrefix>{{i+1}}. &nbsp;</span>
-        <input matInput [(ngModel)]="base.content">
-      </mat-form-field>
-    </div>
-    <div class="col-xs-6 data">
-      <mat-form-field class="example-full-width col-xs-12" *ngFor="let matched of toBeMatchedArray; let j = index;" [@itemAnim]>
-        <span matPrefix>{{j+1}}. &nbsp;</span>
-        <input matInput [(ngModel)]="matched.content">
-      </mat-form-field>
-    </div>
+    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="baseArray">
+      <li *ngFor="let base of baseArray; let i = index;" dnd-sortable [sortableIndex]="i">
+        <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
+          <span matPrefix>{{i+1}}. &nbsp;</span>
+          <mat-select [(ngModel)]="base.content">
+            <mat-option *ngFor="let animal of animals" [value]="animal.value" [class.hidden]='checkAnimalsSelected(animal.value)'>
+              {{ animal.name }}
+            </mat-option>
+          </mat-select>
+          <span matSuffix aria-label="Clear">
+            <i *ngIf="base.matched === true" class="fa fa-check" aria-hidden="true"></i>
+            <i *ngIf="base.matched === false" class="fa fa-times red" aria-hidden="true"></i>
+          </span>
+        </mat-form-field>
+      </li>
+    </ul>
+    <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="toBeMatchedArray">
+      <li *ngFor="let matched of toBeMatchedArray; let i = index;" dnd-sortable [sortableIndex]="i">
+        <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
+          <span matPrefix>{{i+1}}. &nbsp;</span>
+          <mat-select [(ngModel)]="matched.content">
+            <mat-option *ngFor="let home of homes" [value]="home.value" [class.hidden]='checkHomesSelected(home.value)'>
+              {{ home.name }}
+            </mat-option>
+          </mat-select>
+          <span matSuffix aria-label="Clear">
+            <i *ngIf="matched.matched === true" class="fa fa-check" aria-hidden="true"></i>
+            <i *ngIf="matched.matched === false" class="fa fa-times red" aria-hidden="true"></i>
+          </span>
+        </mat-form-field>
+      </li>
+    </ul>
     <div class="clearfix"></div>
   </div>
   <div class="footer col-xs-12">
