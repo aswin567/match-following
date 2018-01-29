@@ -95,16 +95,16 @@ export class MatchFollowingComponent implements OnInit {
 
   showSnacksBar(message: string) {
     this.snackBar.open(message, 'ok', {
-      duration: 1000,
+      duration: (message.length*100),
     });
   }
 
   onCheckMatch() {
     if (this.baseArray[this.baseArray.length - 1].content !== null && this.toBeMatchedArray[this.toBeMatchedArray.length - 1].content !== null) {
-      if (this.toBeMatchedArray.length > this.baseArray.length) {
+      if (this.toBeMatchedArray.length >= this.baseArray.length) {
         this.arraysEqual(this.baseArray, this.toBeMatchedArray);
       } else {
-        this.showSnacksBar('Number of items in list B bust be grater than list A');
+        this.showSnacksBar('Number of items in list B bust be grater than or equal to list A');
       }
     } else {
       this.showSnacksBar('Before checking you must make the place holders valid');
@@ -149,5 +149,7 @@ export class MatchFollowingComponent implements OnInit {
       }
     }
   }
+
+  onReorder(){}
 
 }

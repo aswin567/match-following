@@ -1,13 +1,13 @@
 <div class="mf-container">
   <div class="header">
     <div class="col-xs-6 br-r">
-      <p>A</p>
+      <p>Animals</p>
       <button mat-mini-fab color="primary" class="pull-right" (click)="onAddBaseArray()">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
     </div>
     <div class="col-xs-6">
-      <p>B</p>
+      <p>Homes</p>
       <button mat-mini-fab color="primary" class="pull-right" (click)="onAddMatchedArray()">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
@@ -51,7 +51,7 @@
   </div>
   <div class="footer col-xs-12">
     <div class="col-xs-4">
-      <button mat-raised-button color="warn">
+      <button mat-raised-button color="warn" (click)="onReorder()">
         <i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>
         Reorder
       </button>
