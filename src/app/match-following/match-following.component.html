@@ -2,13 +2,13 @@
   <div class="header">
     <div class="col-xs-6 br-r">
       <p>Animals</p>
-      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddBaseArray()">
+      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddBaseArray()" *ngIf="userLevel=='teacher'">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
     </div>
     <div class="col-xs-6">
       <p>Homes</p>
-      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddMatchedArray()">
+      <button mat-mini-fab color="primary" class="pull-right" (click)="onAddMatchedArray()" *ngIf="userLevel=='teacher'">
         <i class="fa fa-plus-square" aria-hidden="true"></i>
       </button>
     </div>
@@ -16,10 +16,10 @@
   </div>
   <div>
     <ul class="col-xs-6 data" dnd-sortable-container [sortableData]="baseArray"  [dropZones]="['zone1']">
-      <li *ngFor="let base of baseArray; let i = index;" dnd-sortable [sortableIndex]="i">
+      <li *ngFor="let base of baseArray; let i = index;" dnd-sortable  [dragEnabled]="userLevel=='teacher'" [sortableIndex]="i">
         <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
           <span matPrefix>{{i+1}}. &nbsp;</span>
-          <mat-select [(ngModel)]="base.content">
+          <mat-select [(ngModel)]="base.content" [disabled]="userLevel=='student'">
             <mat-option *ngFor="let animal of animals" [value]="animal.value" [class.hidden]='checkAnimalsSelected(animal.value)'>
               {{ animal.name }}
             </mat-option>
@@ -36,7 +36,7 @@
       <li *ngFor="let matched of toBeMatchedArray; let i = index;" dnd-sortable [sortableIndex]="i">
         <mat-form-field class="example-full-width col-xs-12" [@itemAnim]>
           <span matPrefix>{{i+1}}. &nbsp;</span>
-          <mat-select [(ngModel)]="matched.content">
+          <mat-select [(ngModel)]="matched.content"  [disabled]="userLevel=='student'">
             <mat-option *ngFor="let home of homes" [value]="home.value" [class.hidden]='checkHomesSelected(home.value)'>
               {{ home.name }}
             </mat-option>
@@ -59,9 +59,13 @@
       </button>
     </div>
     <div class="col-xs-4">
-      <button mat-raised-button color="primary" (click)="onCheckMatch()">
+      <button mat-raised-button *ngIf="userLevel=='student'" color="primary" (click)="onCheckMatch()">
         <i class="fa fa-check" aria-hidden="true"></i>
         Check
+      </button>
+      <button mat-raised-button color="primary" *ngIf="userLevel=='teacher'" (click)="goToStudentView()">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Preview
       </button>
     </div>
     <div class="col-xs-4">
@@ -72,3 +76,8 @@
     </div>
   </div>
 </div>
+
+<a 
+  (click)="goToProductDetails()">
+  DEAA
+</a>

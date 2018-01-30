@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, style, transition, animate, group } from '@angular/animations';
 import { MatSnackBar } from '@angular/material';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatchFollowing } from './match-following';
 
@@ -23,9 +23,11 @@ import { MatchFollowing } from './match-following';
 })
 export class MatchFollowingComponent implements OnInit {
   // Declaration 
+  sub: any;
+  userLevel:string;
   baseArray: Array<MatchFollowing> = [];
   toBeMatchedArray: Array<MatchFollowing> = [];
-
+  private answerArray:Array<number>=[]
   animals: Array<any> = [
     { name: 'Rabbit', value: 1 },
     { name: 'Sheep', value: 2 },
@@ -46,13 +48,19 @@ export class MatchFollowingComponent implements OnInit {
 
 
 
-  constructor(public snackBar: MatSnackBar) { }
+  constructor(public snackBar: MatSnackBar, private route:ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
     this.addItemtoBaseArr();
     this.addItemtoMatchedArr();
+    this.sub = this.route.params.subscribe(params => {
+      this.userLevel = params['id']; 
+   });
   }
 
+  ngOnDestroy(){
+
+  }
   addItemtoBaseArr() {
     this.baseArray.push({
       content: null,
@@ -100,15 +108,8 @@ export class MatchFollowingComponent implements OnInit {
   }
 
   onCheckMatch() {
-    if (this.baseArray[this.baseArray.length - 1].content !== null && this.toBeMatchedArray[this.toBeMatchedArray.length - 1].content !== null) {
-      if (this.toBeMatchedArray.length >= this.baseArray.length) {
-        this.arraysEqual(this.baseArray, this.toBeMatchedArray);
-      } else {
-        this.showSnacksBar('Number of items in list B bust be grater than or equal to list A');
-      }
-    } else {
-      this.showSnacksBar('Before checking you must make the place holders valid');
-    }
+        this.arraysEqual(this.answerArray, this.toBeMatchedArray);
+
   }
 
   onReset() {
@@ -138,13 +139,11 @@ export class MatchFollowingComponent implements OnInit {
     });
   }
 
-  arraysEqual(arr1:Array<MatchFollowing>, arr2:Array<MatchFollowing>) {
+  arraysEqual(arr1:Array<number>, arr2:Array<MatchFollowing>) {
     for (var i = arr1.length; i--;) {
-      if (arr1[i].content!== arr2[i].content) {
-        arr1[i].matched = false;
+      if (arr1[i]!== arr2[i].content) {
         arr2[i].matched = false;
       } else {
-        arr1[i].matched = true;
         arr2[i].matched = true;
       }
     }
@@ -152,4 +151,32 @@ export class MatchFollowingComponent implements OnInit {
 
   onReorder(){}
 
+  shuffle(a:Array<any>) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+  return a;  
+}
+createAnswerArray(a:Array<MatchFollowing>){
+  this.answerArray=a.map((item)=>{
+    return item.content;
+  })
+}
+  goToStudentView() {
+    if (this.baseArray[this.baseArray.length - 1].content !== null && this.toBeMatchedArray[this.toBeMatchedArray.length - 1].content !== null) {
+      if (this.toBeMatchedArray.length >= this.baseArray.length) {
+        this.createAnswerArray(this.toBeMatchedArray);
+        this.toBeMatchedArray=this.shuffle(this.toBeMatchedArray);
+        this.router.navigate(['/mf', 'student']);
+      } else {
+        this.showSnacksBar('Number of items in list B bust be grater than or equal to list A');
+      }
+    } else {
+      this.showSnacksBar('Before checking you must make the place holders valid');
+    }
+  }
 }

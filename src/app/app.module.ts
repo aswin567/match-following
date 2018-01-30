@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { AppRouting } from './app.routing.module';
 
 import { DndModule } from 'ng2-dnd';
 
@@ -20,7 +21,8 @@ import { MatchFollowingComponent } from './match-following/match-following.compo
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    AppRouting
   ],
   providers: [],
   bootstrap: [AppComponent]
