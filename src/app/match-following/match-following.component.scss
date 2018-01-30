@@ -1,7 +1,13 @@
 .mf-container{
-    width:720px;
-    height: 720px;
+    width: 720px;
+    height: 537px;
     overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -270px;
+    margin-left: -360px;
+    margin-bottom: 60px;
     .header{
         background: #eee;
         padding: 0 14px;
